@@ -1,4 +1,3 @@
-// Импортируем универсальную функцию getUserData и функции прелоадера
 import { getUserData, waitForTelegram, showPreloader, hidePreloader, waitForTelegramReady, setPreloaderText } from '../telegram.js';
 import { render } from '../utils/render.js';
 
