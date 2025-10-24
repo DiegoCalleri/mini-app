@@ -1,7 +1,7 @@
 import { getUserData, waitForTelegram, showPreloader, hidePreloader, waitForTelegramReady, setPreloaderText } from '../telegram.js';
 import { render } from '../utils/render.js';
 
-// Функция для получения товаров из localStorage
+/** Функция для получения товаров из localStorage */
 const getCartItems = async () => {
     const { id } = await getUserData()
     const raw = localStorage.getItem(id)
@@ -9,7 +9,7 @@ const getCartItems = async () => {
     try { return JSON.parse(raw) } catch { return [] }
 }
 
-// Функция для получения информации о товаре по ID
+/** Функция для получения информации о товаре по ID */
 const getProductInfo = async (productId) => {
     try {
         const response = await fetch('../goods.json')
@@ -23,7 +23,7 @@ const getProductInfo = async (productId) => {
     }
 }
 
-// Функция для удаления товара из корзины
+/** Функция для удаления товара из корзины */
 const removeFromCart = async (productId) => {
     const user = await getUserData()
     const productListString = localStorage.getItem(user.id)
@@ -40,7 +40,7 @@ const removeFromCart = async (productId) => {
     return productList
 }
 
-// Функция для создания HTML элемента товара в корзине
+/** Функция для создания HTML элемента товара в корзине */
 const createCartItemHTML = (product, quantity) => {
     const totalPrice = parseFloat(product.price.replace(',', '.')) * quantity
 
@@ -83,13 +83,13 @@ const cartContainer = () => {
     `
 }
 
-// Отрисовка каркаса корзины
+/** Отрисовка каркаса корзины */
 const renderCartScaffold = () => {
     const container = document.querySelector('.cart-container')
     container.innerHTML = cartContainer()
 }
 
-// Получение ссылок на ключевые DOM-элементы корзины
+/** Получение ссылок на ключевые DOM-элементы корзины */
 const getCartDomRefs = () => {
     return {
         cartItemsContainer: document.getElementById('cart-items'),
@@ -98,7 +98,7 @@ const getCartDomRefs = () => {
     }
 }
 
-// Переключение состояния пустой/непустой корзины
+/** Переключение состояния пустой/непустой корзины */
 const setEmptyCartState = (isEmpty, refs) => {
     const { cartItemsContainer, emptyCartDiv, cartSummaryDiv } = refs
     if (isEmpty) {
@@ -111,7 +111,7 @@ const setEmptyCartState = (isEmpty, refs) => {
     cartSummaryDiv.style.display = 'block'
 }
 
-// Рендер товаров корзины (через универсальную утилиту)
+/** Рендер товаров корзины (через универсальную утилиту) */
 const renderCartItems = async (cartItems, container) => {
     await render({
         source: cartItems,
@@ -128,7 +128,7 @@ const renderCartItems = async (cartItems, container) => {
     })
 }
 
-// Обработчик кнопки оформления заказа
+/** Обработчик кнопки оформления заказа */
 const attachCheckoutHandler = () => {
     const checkoutButton = document.getElementById('checkout-button')
     if (!checkoutButton || checkoutButton.hasAttribute('data-listener-added')) return
@@ -165,7 +165,7 @@ const attachCheckoutHandler = () => {
     })
 }
 
-// Обновление отображения корзины (оркестратор)
+/** Обновление отображения корзины (оркестратор) */
 const updateCartDisplay = async () => {
     renderCartScaffold()
     const cartItems = await getCartItems()
@@ -181,7 +181,7 @@ const updateCartDisplay = async () => {
 }
 
 
-// Функция для быстрого обновления общей суммы
+/** Функция для быстрого обновления общей суммы */
 const updateTotalSum = async () => {
     const cartItems = await getCartItems()
     let totalSum = 0
@@ -204,7 +204,7 @@ const updateTotalSum = async () => {
     }
 }
 
-// Построение данных заказа
+/** Построение данных заказа */
 const buildOrderData = async (cartItems) => {
     const orderItems = []
     let totalSum = 0
@@ -281,7 +281,7 @@ const addEventListenersToElement = (element) => {
 }
 
 
-// Показываем прелоадер сразу при загрузке
+/** Показываем прелоадер сразу при загрузке */
 showPreloader();
 setPreloaderText('Загрузка корзины...', 'Пожалуйста, подождите');
 
@@ -295,14 +295,12 @@ waitForTelegram(async () => {
 
         await updateCartDisplay()
 
-            // Скрываем прелоадер
-    hidePreloader();
+        // Скрываем прелоадер
+        hidePreloader();
 
-    console.log('Cart: Application fully loaded');
-} catch (error) {
-    console.error('Error loading cart:', error);
-    hidePreloader();
-}
-
-console.log('Корзина загружена!')
+        console.log("Корзина загружена");
+    } catch (error) {
+        console.error("Ошибка загрузки корзины:", error);
+        hidePreloader();
+    }
 }) 
