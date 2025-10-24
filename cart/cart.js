@@ -226,7 +226,7 @@ const buildOrderData = async (cartItems) => {
     return { orderItems, totalSum }
 }
 
-// Формирование текста заказа
+/** Формирование текста заказа */
 const buildOrderText = (orderItems, totalSum, userId) => {
     return `🛒 *Новый заказ*
         
@@ -242,14 +242,14 @@ ${orderItems.map(item => `• ${item.name} - ${item.price} ₽ × ${item.quantit
 _Заказ создан через Mini App_`
 }
 
-// Сборка Telegram ссылки
+/** Сборка Telegram ссылки */
 const buildTelegramLink = (orderText, user) => {
     const encodedText = encodeURIComponent(orderText)
     const telegramUsername = localStorage.getItem('seller_username') || user.id
     return `https://t.me/${telegramUsername}?text=${encodedText}`
 }
 
-// Функция для создания Telegram ссылки с заказом
+/** Функция для создания Telegram ссылки с заказом */
 const createTelegramOrderLink = async (cartItems, user) => {
     try {
         const { orderItems, totalSum } = await buildOrderData(cartItems)
@@ -261,7 +261,7 @@ const createTelegramOrderLink = async (cartItems, user) => {
     }
 }
 
-// Функция для добавления обработчиков к конкретному элементу
+/** Функция для добавления обработчиков к конкретному элементу */
 const addEventListenersToElement = (element) => {
     console.log('Adding event listeners to element:', element)
 
