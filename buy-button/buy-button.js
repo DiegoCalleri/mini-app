@@ -126,47 +126,24 @@ export const initializeBuyButtons = () => {
 
         btnList.forEach(btn => {
             const btnProductId = btn.getAttribute('btn_product_id');
-            initializeQuantityControls(user, btnProductId);
+            initializeQuantityControls(btnProductId);
 
             btn.addEventListener('click', () => {
                 if (btn.querySelector('.buy-button')) {
                     updateProductsFromStorage(user, btnProductId, true)
                     btn.innerHTML = getQuantityInputHTML(btnProductId)
-                    initializeQuantityControls(user, btnProductId)
+                    initializeQuantityControls(btnProductId)
                 }
                 else {
                     const input = document.querySelector(`input[btn_product_id="${btnProductId}"]`)
                     if (input && parseInt(input.value) <= 0) {
                         createAndReplaceButton(btnProductId);
                     } else {
-                        initializeQuantityControls(user, btnProductId)
+                        initializeQuantityControls(btnProductId)
                     }
                 }
             })
         })
     });
-
-    btnList.forEach(btn => {
-        const btnProductId = btn.getAttribute('btn_product_id');
-        initializeQuantityControls(btnProductId);
-
-        btn.addEventListener('click', () => {
-            if (btn.querySelector('.buy-button')) {
-                updateProductsFromStorage(btnProductId, true)
-                btn.innerHTML = getQuantityInputHTML(btnProductId)
-                initializeQuantityControls(btnProductId)
-            }
-            else {
-                const input = document.querySelector(`input[btn_product_id="${btnProductId}"]`)
-                if (input && parseInt(input.value) <= 0) {
-                    createAndReplaceButton(btnProductId);
-                } else {
-                    initializeQuantityControls(btnProductId)
-                }
-            }
-        })
-    })
-} // Закрываем функцию initializeBuyButtons
-
-// Экспортируем все функции
+}
 
