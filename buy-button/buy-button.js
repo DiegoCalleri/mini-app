@@ -120,17 +120,14 @@ export const initializeBuyButtons = () => {
 
     // Ждем инициализации Telegram
     getUserData().then(userData => {
-        const user = userData;
-        console.log('User initialized:', user);
-        console.log(localStorage.getItem(user.id))
 
         btnList.forEach(btn => {
             const btnProductId = btn.getAttribute('btn_product_id');
             initializeQuantityControls(btnProductId);
 
-            btn.addEventListener('click', () => {
+            btn.addEventListener('click', async () => {
                 if (btn.querySelector('.buy-button')) {
-                    updateProductsFromStorage(user, btnProductId, true)
+                    await updateProductsFromStorage(btnProductId, true)
                     btn.innerHTML = getQuantityInputHTML(btnProductId)
                     initializeQuantityControls(btnProductId)
                 }
