@@ -1,4 +1,12 @@
-/** Универсальная функция рендера списка */
+/**
+ * Универсальная функция рендера списка элементов в DOM контейнер
+ * @param {Array} params.source - Массив данных для рендеринга
+ * @param {HTMLElement} params.container - DOM контейнер для вставки элементов
+ * @param {Function} params.template - Асинхронная функция шаблона для генерации HTML
+ * @param {Object} params.options - Дополнительные опции
+ * @param {boolean} params.options.clearContainer - Очищать контейнер перед рендерингом (по умолчанию true)
+ * @param {Function} params.options.afterInsert - Callback функция после вставки каждого элемента
+ */
 export const render = async ({ source, container, template, options = {} }) => {
     const { clearContainer = true, afterInsert } = options
     if (!container) return
