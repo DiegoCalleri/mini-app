@@ -1,4 +1,4 @@
-import { loadPreloaderCSS, loadPreloaderHTML } from '../utils/load.js'
+import { loadCSSFromFile, loadHTMLFromFile } from '../utils/load.js'
 
 const cssPaths = ["./preloader/preloader.css", "../preloader/preloader.css"];
 const htmlPaths = ["./preloader/preloader.html", "../preloader/preloader.html"];
@@ -42,6 +42,6 @@ export const setPreloaderText = (text, subtext = 'Пожалуйста, подо
 
 /** Функция для инициализации прелоадера */
 export const initializePreloader = async () => {
-    loadPreloaderCSS(cssPaths);
-    await loadPreloaderHTML(htmlPaths);
+    loadCSSFromFile(cssPaths);
+    await loadHTMLFromFile(htmlPaths);
 } 

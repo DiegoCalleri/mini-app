@@ -1,5 +1,5 @@
 /* Функция для загрузки CSS */
-export const loadPreloaderCSS = (cssPaths) => {
+export const loadCSSFromFile = (cssPaths) => {
   const link = document.createElement("link");
   link.rel = "stylesheet";
 
@@ -24,7 +24,7 @@ export const loadPreloaderCSS = (cssPaths) => {
 };
 
 /* Функция для загрузки HTML */
-export const loadPreloaderHTML = async (htmlPaths) => {
+export const loadHTMLFromFile = async (htmlPaths) => {
   let currentAttempt = 0;
 
   const attemptHTML = async () => {

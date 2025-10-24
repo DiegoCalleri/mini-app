@@ -1,8 +1,11 @@
-
-// Импортируем универсальную функцию getUserData
 import { getUserData } from '../telegram.js';
 
-// Экспортируем функцию для создания HTML кнопки с количеством
+/**
+ * Функция для создания HTML кнопки с количеством
+ * @param {string} btnProductId - ID товара
+ * @param {number} count - Количество товара (по умолчанию 1)
+ * @returns {string} HTML кнопки с количеством
+ */
 export const getQuantityInputHTML = (btnProductId, count = 1) => `
     <div class="input-group product-input-amount">
         <button class="btn btn-outline-secondary decrease">-</button>
