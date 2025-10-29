@@ -1,58 +1,69 @@
-import { loadTelegramJS } from "../telegram.js"
+import { loadTelegramJS, initializePreloader } from "../telegram.js";
+import { loadScriptFromFile } from "../utils/load.js";
 
 // Загрузка Bootstrap CSS
 const loadBootstrapCSS = () => {
-    const link = document.createElement('link')
-    link.href = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css'
-    link.rel = 'stylesheet'
-    link.integrity = 'sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr'
-    link.crossOrigin = 'anonymous'
-    document.head.insertBefore(link, document.head.firstChild)
-}
+  const link = document.createElement("link");
+  link.href =
+    "https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css";
+  link.rel = "stylesheet";
+  link.integrity =
+    "sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr";
+  link.crossOrigin = "anonymous";
+  document.head.insertBefore(link, document.head.firstChild);
+};
 
 // Загрузка Bootstrap JS
 const loadBootstrapJS = () => {
-    const script = document.createElement('script')
-    script.src = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js'
-    script.integrity = "sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-    script.crossOrigin = 'anonymous'
-    script.defer = true
-    document.body.appendChild(script)
-}
+  const script = document.createElement("script");
+  script.src =
+    "https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js";
+  script.integrity =
+    "sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q";
+  script.crossOrigin = "anonymous";
+  script.defer = true;
+  document.body.appendChild(script);
+};
 
 const loadNavBar = () => {
-    const pathToTry = [
-        './navbar/navbar.html',
-        '../navbar/navbar.html'
-    ]
+  const pathToTry = ["./navbar/navbar.html", "../navbar/navbar.html"];
 
-    let currentAttempt = 0
+  let currentAttempt = 0;
 
-    const attemptFetch = () => {
-        fetch(pathToTry[currentAttempt])
-            .then(res => {
-                if (!res.ok) throw new Error('Navbar not found')
-                return res.text()
-            })
-            .then(html => {
-                document.body.insertAdjacentHTML('afterbegin', html)
-            })
-            .catch(err => {
-                currentAttempt++
-                if (currentAttempt < pathToTry.length) {
-                    attemptFetch()
-                } else {
-                    console.error('All attempts failed', err)
-                }
-            })
-    }
+  const attemptFetch = () => {
+    fetch(pathToTry[currentAttempt])
+      .then((res) => {
+        if (!res.ok) throw new Error("Navbar not found");
+        return res.text();
+      })
+      .then((html) => {
+        document.body.insertAdjacentHTML("afterbegin", html);
+      })
+      .catch((err) => {
+        currentAttempt++;
+        if (currentAttempt < pathToTry.length) {
+          attemptFetch();
+        } else {
+          console.error("All attempts failed", err);
+        }
+      });
+  };
 
-    attemptFetch()
-}
+  attemptFetch();
+};
 
-window.addEventListener('DOMContentLoaded', () => {
-    loadTelegramJS();
-    loadBootstrapCSS();
-    loadBootstrapJS();
-    loadNavBar()
-})
+const buyButtonPaths = [
+  "./buy-button/buy-button.js",
+  "../buy-button/buy-button.js",
+];
+
+window.addEventListener("DOMContentLoaded", async () => {
+  await initializePreloader();
+  loadTelegramJS();
+  loadBootstrapCSS();
+  loadBootstrapJS();
+  loadNavBar();
+  // loadScriptFromFile(buyButtonPaths);
+});
+
+
