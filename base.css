@@ -6,6 +6,7 @@
 body {
     background-color: var(--tg-theme-bg-color, rgb(255,255,255)) !important;
     color: var(--tg-theme-text-color, rgb(0,0,0)) !important;
+    padding-top: 60px;
 }
 
 h1, h2, h3, p {
@@ -42,7 +43,7 @@ h1, h2, h3, p {
 }
 
 .navbar-brand, .text {
-    color: var(--tg-theme-bg-color, rgb(0,0,0))
+    color: var(--tg-theme-text-color, rgb(0,0,0))
 }
 
 /** Buttons **/
@@ -62,4 +63,15 @@ h1, h2, h3, p {
     max-width: 5px;
     display: flex;
     justify-content: center;
+}
+
+@media (min-width: 400px) {
+    .navbar-expand-lg .navbar-collapse {
+        display: flex !important;
+        flex-basis: auto;
+    }
+
+    .navbar-expand-lg .navbar-toggler {
+        display: none;
+    }
 }
